@@ -1,0 +1,42 @@
+version: 2.1
+
+### Aliases
+ignore-master: &ignore-master
+  filters:
+    branches:
+      ignore:
+        - master
+
+only-master: &only-master
+  filters:
+    branches:
+      only: master
+
+### EXECUTORS
+executors:
+  circleci-node:
+    docker:
+      - image: cimg/base:2020.01
+
+### JOBS
+jobs:
+  test_env:
+    description: "testing the environment variables for aws"
+    parameters:
+      aws_assume_role_arn:
+        type: string
+    executor: circleci-node
+    working_directory: ~/code
+    steps:
+      - checkout
+      - run:
+          name: test environment variables with contexts and Default Circle Environment variables
+          command: |
+            echo $AWS_ASSUME_ROLE_ARN_MGMT
+
+### WORKFLOWS
+workflows:
+    test_env:
+      jobs:
+        - test_env:
+            aws_assume_role_arn: "${AWS_ASSUME_ROLE_ARN_MGMT}"
