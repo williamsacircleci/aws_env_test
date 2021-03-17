@@ -32,7 +32,7 @@ jobs:
       - run:
           name: test environment variables with contexts and Default Circle Environment variables
           command: |
-            echo $AWS_ASSUME_ROLE_ARN_MGMT
+            echo "${AWS_ASSUME_ROLE_ARN_MGMT}"
 
 ### WORKFLOWS
 workflows:
