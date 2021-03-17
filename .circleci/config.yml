@@ -27,12 +27,17 @@ jobs:
         type: string
     executor: circleci-node
     working_directory: ~/code
+    environment:
+          MY_ENV_VAR_1: my-value-1
+          MY_ENV_VAR_2: my-value-2
     steps:
       - checkout
       - run:
           name: test environment variables with contexts and Default Circle Environment variables
           command: |
             echo $AWS_ASSUME_ROLE_ARN_MGMT
+            echo $MY_ENV_VAR_1
+            echo $MY_ENV_VAR_2
 
 ### WORKFLOWS
 workflows:
