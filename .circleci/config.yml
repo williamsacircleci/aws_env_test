@@ -1,6 +1,10 @@
 version: 2.1
 
 ### Aliases
+context: &context
+  context: aws_test
+
+
 ignore-master: &ignore-master
   filters:
     branches:
@@ -11,10 +15,6 @@ only-master: &only-master
   filters:
     branches:
       only: master
-  
-context: &context
-  context:
-    - aws_test
 
 ### EXECUTORS
 executors:
@@ -49,4 +49,4 @@ workflows:
       jobs:
         - test_env:
             aws_assume_role_arn: $AWS_ASSUME_ROLE_ARN_MGMT
-          <<: *context
+            <<: *context
